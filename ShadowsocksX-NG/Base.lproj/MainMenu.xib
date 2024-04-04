@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22505"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -24,8 +24,10 @@
                 <outlet property="serverProfilesBeginSeparatorMenuItem" destination="4iN-w2-but" id="Jyu-48-AzD"/>
                 <outlet property="serverProfilesEndSeparatorMenuItem" destination="3cf-dF-7dx" id="eyc-6W-nWV"/>
                 <outlet property="serversMenuItem" destination="u5M-hQ-VSc" id="8gp-SY-Y4U"/>
+                <outlet property="speedTestMenuItem" destination="GbS-5x-pjo" id="VS0-9P-2F7"/>
                 <outlet property="statusMenu" destination="Hob-KD-bx9" id="clA-ZW-0pT"/>
                 <outlet property="toggleRunningMenuItem" destination="GSu-Tf-StS" id="XHw-pU-nCa"/>
+                <outlet property="updateServersMenuItem" destination="DLP-eh-gcu" id="2hV-gh-B03"/>
             </connections>
         </customObject>
         <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
@@ -78,6 +80,18 @@
                             <menuItem isSeparatorItem="YES" id="3cf-dF-7dx"/>
                         </items>
                     </menu>
+                </menuItem>
+                <menuItem title="Update Servers" keyEquivalent="u" id="DLP-eh-gcu">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="updateServers:" target="Voe-Tx-rLC" id="i4L-Bu-55k"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Speed Test" keyEquivalent="t" id="GbS-5x-pjo">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="doSpeedTest:" target="Voe-Tx-rLC" id="5cF-Gu-IUu"/>
+                    </connections>
                 </menuItem>
                 <menuItem title="Scan QR Code From Screen" id="Qe6-bF-paT">
                     <modifierMask key="keyEquivalentModifierMask"/>
@@ -163,7 +177,7 @@
         <userDefaultsController representsSharedInstance="YES" id="jhL-aG-BFA"/>
     </objects>
     <resources>
-        <image name="NSShareTemplate" width="11" height="16"/>
+        <image name="NSShareTemplate" width="19" height="23"/>
         <image name="terminal-logo" width="22.695652008056641" height="17.217391967773438"/>
     </resources>
 </document>

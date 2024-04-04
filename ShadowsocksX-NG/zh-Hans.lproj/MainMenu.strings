@@ -83,6 +83,12 @@
 /* Class = "NSMenuItem"; title = "Ping server"; ObjectID = "zfR-Jt-GmS"; */
 "zfR-Jt-GmS.title" = "服务器测速";
 
+/* Class = "NSMenuItem"; title = "Speed Test"; ObjectID = "GbS-5x-pjo"; */
+"GbS-5x-pjo.title" = "服务器测速";
+
+/* Class = "NSMenuItem"; title = "Update Servers"; ObjectID = "DLP-eh-gcu"; */
+"DLP-eh-gcu.title" = "更新服务器";
+
 /* Class = "NSMenuItem"; title = "Show network speed"; ObjectID = "a3h-uQ-DuO"; */
 "a3h-uQ-DuO.title" = "显示网速";
 

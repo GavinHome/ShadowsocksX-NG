@@ -33,6 +33,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     @IBOutlet weak var externalPACModeMenuItem: NSMenuItem!
     
     @IBOutlet weak var serversMenuItem: NSMenuItem!
+    @IBOutlet weak var updateServersMenuItem: NSMenuItem!;
+    @IBOutlet weak var speedTestMenuItem: NSMenuItem!;
     @IBOutlet var showQRCodeMenuItem: NSMenuItem!
     @IBOutlet var scanQRCodeMenuItem: NSMenuItem!
     @IBOutlet var serverProfilesBeginSeparatorMenuItem: NSMenuItem!
@@ -406,6 +408,17 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
             applyConfig()
         }
         updateRunningModeMenu()
+    }
+    
+    @IBAction func updateServers(_ sender: NSMenuItem) {
+        // Show a toast notification.
+        self.makeToast("Update Servers.".localized)
+    }
+    
+    @IBAction func doSpeedTest(_ sender: NSMenuItem) {
+        // PingServers.instance.ping()
+        // Show a toast notification.
+        self.makeToast("Do Speed Test.".localized)
     }
     
     @IBAction func copyExportCommand(_ sender: NSMenuItem) {
