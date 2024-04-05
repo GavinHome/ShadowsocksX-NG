@@ -424,9 +424,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     }
     
     @IBAction func doSpeedTest(_ sender: NSMenuItem) {
-        // PingServers.instance.ping()
         // Show a toast notification.
         self.makeToast("Do Speed Test.".localized)
+        PingServers.instance.ping()
     }
     
     @IBAction func copyExportCommand(_ sender: NSMenuItem) {
@@ -537,6 +537,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
                     profileName = p.serverHost
                 }
                 serverMenuText = "Servers".localized + " - \(profileName)"
+                
+                if let latency = p.latency {
+                    serverMenuText += "  - \(latency)ms"
+                }
+                
                 break
             }
         }

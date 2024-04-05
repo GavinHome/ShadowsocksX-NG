@@ -23,6 +23,8 @@ class ServerProfile: NSObject, NSCopying {
     @objc var plugin: String = ""  // empty string disables plugin
     @objc var pluginOptions: String = ""
     
+    @objc var latency:String?
+    
     override init() {
         uuid = UUID().uuidString
     }
@@ -327,6 +329,8 @@ class ServerProfile: NSObject, NSCopying {
     func title() -> String {
         if remark.isEmpty {
             return "\(serverHost):\(serverPort)"
+        } else if latency != nil {
+            return "\(String(remark.prefix(24))) (\(serverHost):\(serverPort)) - \(latency!)ms"
         } else {
             return "\(String(remark.prefix(24))) (\(serverHost):\(serverPort))"
         }

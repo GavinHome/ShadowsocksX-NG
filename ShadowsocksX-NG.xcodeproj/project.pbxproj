@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		07ECFEEC2BBFD10D00290528 /* UpdateServersController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07ECFEEE2BBFD10D00290528 /* UpdateServersController.xib */; };
 		07EF55DB2BBFDFBC0096FEB2 /* UpdateServersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EF55DA2BBFDFBC0096FEB2 /* UpdateServersController.swift */; };
+		07EF55DF2BC02E090096FEB2 /* PingClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EF55DE2BC02E090096FEB2 /* PingClient.swift */; };
+		07EF55EA2BC030FB0096FEB2 /* SimplePing.m in Sources */ = {isa = PBXBuildFile; fileRef = 07EF55E82BC030FB0096FEB2 /* SimplePing.m */; };
 		1C82DBA81FA96C7500B32551 /* obfs-local in Resources */ = {isa = PBXBuildFile; fileRef = 1C82DBA51FA96C7400B32551 /* obfs-local */; };
 		1C82DBAA1FA96FB600B32551 /* install_simple_obfs.sh in Resources */ = {isa = PBXBuildFile; fileRef = 1C82DBA91FA96F0300B32551 /* install_simple_obfs.sh */; };
 		9B07EFA71D048BBB0052D9DF /* ss-local in Resources */ = {isa = PBXBuildFile; fileRef = 9B07EFA61D048BBB0052D9DF /* ss-local */; };
@@ -148,6 +150,9 @@
 		07ECFEED2BBFD10D00290528 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/UpdateServersController.xib; sourceTree = "<group>"; };
 		07ECFEF02BBFD10F00290528 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/UpdateServersController.strings"; sourceTree = "<group>"; };
 		07EF55DA2BBFDFBC0096FEB2 /* UpdateServersController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateServersController.swift; sourceTree = "<group>"; };
+		07EF55DE2BC02E090096FEB2 /* PingClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PingClient.swift; sourceTree = "<group>"; };
+		07EF55E82BC030FB0096FEB2 /* SimplePing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SimplePing.m; path = SimplePing/SimplePing.m; sourceTree = "<group>"; };
+		07EF55E92BC030FB0096FEB2 /* SimplePing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SimplePing.h; path = SimplePing/SimplePing.h; sourceTree = "<group>"; };
 		19083CFCED87354F006967FF /* Pods_ShadowsocksX_NGUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShadowsocksX_NGUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C82DBA51FA96C7400B32551 /* obfs-local */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = "obfs-local"; sourceTree = "<group>"; };
 		1C82DBA91FA96F0300B32551 /* install_simple_obfs.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = install_simple_obfs.sh; sourceTree = "<group>"; };
@@ -297,6 +302,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		07EF55E72BC0307F0096FEB2 /* SimplePing */ = {
+			isa = PBXGroup;
+			children = (
+				07EF55E92BC030FB0096FEB2 /* SimplePing.h */,
+				07EF55E82BC030FB0096FEB2 /* SimplePing.m */,
+			);
+			name = SimplePing;
+			sourceTree = "<group>";
+		};
 		1C82DBA31FA96C7400B32551 /* simple-obfs */ = {
 			isa = PBXGroup;
 			children = (
@@ -367,6 +381,7 @@
 		9B0BFFE71D0460A70040E62B /* ShadowsocksX-NG */ = {
 			isa = PBXGroup;
 			children = (
+				07EF55E72BC0307F0096FEB2 /* SimplePing */,
 				9BB706A51D1B982300551F0E /* SWBApplication.m */,
 				9BB706A61D1B982300551F0E /* SWBApplication.h */,
 				9B3FFF511D09DBA20019A709 /* ShadowsocksX-NG-Bridging-Header.h */,
@@ -395,6 +410,7 @@
 				9B5831F41E7302F8009D5B7D /* ShortcutsController.h */,
 				9B5831F51E7302F8009D5B7D /* ShortcutsController.m */,
 				9B84DAEC2163A72F00DFF068 /* Diagnose.swift */,
+				07EF55DE2BC02E090096FEB2 /* PingClient.swift */,
 			);
 			path = "ShadowsocksX-NG";
 			sourceTree = "<group>";
@@ -823,6 +839,7 @@
 				9BEEF06E1D04DCE400FC52B3 /* ServerProfile.swift in Sources */,
 				9B72FB62232782A300C6AAAE /* ImportWindowController.swift in Sources */,
 				9B3FFF0D1D05FEB30019A709 /* Utils.swift in Sources */,
+				07EF55DF2BC02E090096FEB2 /* PingClient.swift in Sources */,
 				9BEEF0751D04EF3E00FC52B3 /* PreferencesWindowController.swift in Sources */,
 				9B0BFFE91D0460A70040E62B /* AppDelegate.swift in Sources */,
 				07EF55DB2BBFDFBC0096FEB2 /* UpdateServersController.swift in Sources */,
@@ -830,6 +847,7 @@
 				9BA04B231D23D5A5005AAD7F /* ProxyConfTool.m in Sources */,
 				9B5831FF1E741969009D5B7D /* PreferencesWinController.swift in Sources */,
 				9BEEF0781D04FE8A00FC52B3 /* LaunchAgentUtils.swift in Sources */,
+				07EF55EA2BC030FB0096FEB2 /* SimplePing.m in Sources */,
 				9B3546721E802B1200B510B4 /* ToastWindowController.swift in Sources */,
 				C8E42A6C1D4F270A0074C7EA /* UserRulesController.swift in Sources */,
 			);

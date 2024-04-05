@@ -10,3 +10,4 @@
 #import "Utils.h"
 #import "ProxyConfHelper.h"
 #import "ProxyConfTool.h"
+#import "SimplePing.h"
