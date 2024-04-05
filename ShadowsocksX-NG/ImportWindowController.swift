@@ -20,7 +20,7 @@ class ImportWindowController: NSWindowController {
         if #available(OSX 10.13, *) {
             if let text = pb.string(forType: NSPasteboard.PasteboardType.URL) {
                 if let url = URL(string: text) {
-                    if url.scheme == "ss" {
+                    if url.scheme == "ss" { //}|| url.scheme == "ssr" {
                         inputBox.stringValue = text
                     }
                 }

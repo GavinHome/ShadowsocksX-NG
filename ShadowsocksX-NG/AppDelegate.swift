@@ -21,6 +21,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     var allInOnePreferencesWinCtrl: PreferencesWinController!
     var toastWindowCtrl: ToastWindowController!
     var importWinCtrl: ImportWindowController!
+    var updateServersWinCtrl: UpdateServersController!;
 
     @IBOutlet weak var window: NSWindow!
     @IBOutlet weak var statusMenu: NSMenu!
@@ -412,7 +413,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     
     @IBAction func updateServers(_ sender: NSMenuItem) {
         // Show a toast notification.
-        self.makeToast("Update Servers.".localized)
+        // self.makeToast("Update Servers.".localized)
+        if updateServersWinCtrl != nil {
+            updateServersWinCtrl.close()
+        }
+        updateServersWinCtrl = UpdateServersController(windowNibName: "UpdateServersController")
+        updateServersWinCtrl.showWindow(self)
+        NSApp.activate(ignoringOtherApps: true)
+        updateServersWinCtrl.window?.makeKeyAndOrderFront(nil)
     }
     
     @IBAction func doSpeedTest(_ sender: NSMenuItem) {

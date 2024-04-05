@@ -94,12 +94,13 @@ class ServerProfileManager: NSObject {
     }
     
     static func findURLSInText(_ text: String) -> [URL] {
-        var urls = text.split(separator: "\n")
+        var urls = text.replacingOccurrences(of: "\r\n", with: "\n").split(separator: "\n")
             .map { String($0).trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) }
             .map { URL(string: $0) }
             .filter { $0 != nil }
             .map { $0! }
         urls = urls.filter { $0.scheme == "ss" }
+//        urls = urls.filter { $0.scheme == "ss" || $0.scheme == "ssr" }
         return urls
     }
 }
