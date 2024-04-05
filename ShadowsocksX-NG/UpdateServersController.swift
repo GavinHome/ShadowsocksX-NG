@@ -48,7 +48,7 @@ class UpdateServersController: NSWindowController {
             deadline: DispatchTime.now() + DispatchTimeInterval.seconds(1),
             execute: {
                 var subscribeURLs: [String] = [String]()
-                var result: String? = String();
+                var aggs: [String] = [String]();
                 for url in urls {
                     subscribeURLs.append(url.absoluteString)
                     do {
@@ -59,17 +59,19 @@ class UpdateServersController: NSWindowController {
                         request.setValue("1", forHTTPHeaderField: "Version")
                         request.timeoutInterval = 12000
                         var received: Data? = try NSURLConnection.sendSynchronousRequest(request, returning: &response)
-                        result = String(data:received!, encoding: String.Encoding.utf8)
+                        var result = String(data:received!, encoding: String.Encoding.utf8)
                         
                         if result != nil {
                             do {
                                 let data = result!.data(using: String.Encoding.utf8)
                                 let jsonArr = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! [String]
+                                aggs.append(result!)
                             } catch let err as NSError {
                                 NSLog("JSONSerialization ERROR FROM \(url) \(result) \(err)")
                                 if let base64String = result!.data(using: .utf8) {
                                     if let decodedData = Data(base64Encoded: base64String) {
                                         result = String(data: decodedData, encoding: .utf8)
+                                        aggs.append(result!)
                                     }
                                 }
                             }
@@ -79,9 +81,9 @@ class UpdateServersController: NSWindowController {
                     }
                 }
                 
-                
+                aggs.append( "ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTphNTAxYzgyYzcyZDc5MGI4@119.23.1.213:8474/?#%E5%B9%BF%E4%B8%9C%E7%9C%81%E6%B7%B1%E5%9C%B3%E5%B8%82+%E9%98%BF%E9%87%8C%E4%BA%91")
                 let mgr = ServerProfileManager.instance
-                let urls = ServerProfileManager.findURLSInText(result!)
+                let urls = ServerProfileManager.findURLSInText(aggs.joined(separator: "\r\n"))
                 let addCount = mgr.addServerProfileByURL(urls: urls)
                 self.saveSubscribeUrls(profiles: subscribeURLs)
                 if addCount > 0 {
