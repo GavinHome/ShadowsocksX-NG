@@ -159,7 +159,7 @@ class PingServers:NSObject{
         let host = self.SerMgr.profiles[i].serverHost
         SimplePingClient.pingHostname(host) { latency in
             DispatchQueue.global().async {
-                print("[Ping Result]-\(host) latency is \(latency ?? "fail") ms")
+                print("[Ping Result]-\(self.SerMgr.profiles[i].name()) latency is \(latency ?? "fail") ms")
                 self.SerMgr.profiles[i].latency = latency ?? "fail"
                 
                 if latency != nil {
