@@ -112,7 +112,9 @@ class PingServers:NSObject{
                     (NSApplication.shared.delegate as! AppDelegate).updateServersMenu()
                     (NSApplication.shared.delegate as! AppDelegate).updateRunningModeMenu()
                     
-                    if let minProfile = self.SerMgr.profiles.min(by: { (profile1, profile2) -> Bool in
+                    let filteredProfiles = self.SerMgr.profiles.filter { $0.latency != "fail" }
+                    
+                    if let minProfile = filteredProfiles.min(by: { (profile1, profile2) -> Bool in
                         guard let latency1 = profile1.latency, let latency2 = profile2.latency else {
                             return false
                         }
@@ -158,15 +160,17 @@ class PingServers:NSObject{
         
         let host = self.SerMgr.profiles[i].serverHost
         SimplePingClient.pingHostname(host) { latency in
-            DispatchQueue.global().async {
-                print("[Ping Result]-\(self.SerMgr.profiles[i].name()) latency is \(latency ?? "fail") ms")
-                self.SerMgr.profiles[i].latency = latency ?? "fail"
-                
-                if latency != nil {
-                    DispatchQueue.main.async {
-                        // do the UI update HERE
-                        (NSApplication.shared.delegate as! AppDelegate).updateServersMenu()
-                        (NSApplication.shared.delegate as! AppDelegate).updateRunningModeMenu()
+            if(!self.isFinished) {
+                DispatchQueue.global().async {
+                    print("[Ping Result]-\(self.SerMgr.profiles[i].name()) latency is \(latency ?? "fail") ms")
+                    self.SerMgr.profiles[i].latency = latency ?? "fail"
+                    
+                    if latency != nil {
+                        DispatchQueue.main.async {
+                            // do the UI update HERE
+                            (NSApplication.shared.delegate as! AppDelegate).updateServersMenu()
+                            (NSApplication.shared.delegate as! AppDelegate).updateRunningModeMenu()
+                        }
                     }
                 }
             }
