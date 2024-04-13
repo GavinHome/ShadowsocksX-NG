@@ -90,51 +90,79 @@ extension SimplePingClient: SimplePingDelegate {
         //timeIntervalSinceDate returns seconds, so we convert to milis
         let latency = Date().timeIntervalSince(dateReference) * 1000
         resultCallback?(String(format: "%.f", latency))
-    }
+      }
 }
 
 class PingServers:NSObject{
     static let instance = PingServers()
 
     let SerMgr = ServerProfileManager.instance
-    var fastest:String?
-    var fastest_id : Int=0
+    var isFinished: Bool = false
 
     func ping(_ i:Int=0){
         if i == 0{
-            fastest_id = 0
-            fastest = nil
+            isFinished = false
         }
 
         if i >= SerMgr.profiles.count{
-            DispatchQueue.main.async {
-                // do the UI update HERE
-                let message = "The fastest is \(self.SerMgr.profiles[self.fastest_id].remark) \(self.SerMgr.profiles[self.fastest_id].serverHost) \(self.SerMgr.profiles[self.fastest_id].latency!)ms";
-                print(message)
-                let alert = NSAlert.init()
-                alert.alertStyle = .informational;
-                alert.messageText = message.localized
-                alert.addButton(withTitle: "OK")
-                alert.runModal()
+            if !isFinished {
+                isFinished = true
+                DispatchQueue.main.async {
+                    // do the UI update HERE
+                    (NSApplication.shared.delegate as! AppDelegate).updateServersMenu()
+                    (NSApplication.shared.delegate as! AppDelegate).updateRunningModeMenu()
+                    
+                    if let minProfile = self.SerMgr.profiles.min(by: { (profile1, profile2) -> Bool in
+                        guard let latency1 = profile1.latency, let latency2 = profile2.latency else {
+                            return false
+                        }
+                        return Int(latency1)! < Int(latency2)!
+                    }) {
+                        self.SerMgr.setActiveProfiledId(minProfile.uuid)
+                        let message = "The fastest is \(minProfile.remark) \(minProfile.serverHost) \(minProfile.latency!)ms";
+                        //                         let message = "The fastest is \(self.SerMgr.profiles[self.fastest_id].remark) \(self.SerMgr.profiles[self.fastest_id].serverHost) \(self.SerMgr.profiles[self.fastest_id].latency!)ms";
+                        print(message)
+                        let alert = NSAlert.init()
+                        alert.alertStyle = .informational;
+                        alert.messageText = message.localized
+                        alert.addButton(withTitle: "OK")
+                        alert.runModal()
+                    } else {
+                        let message = "No server is valid found."
+                        print(message)
+                        let alert = NSAlert.init()
+                        alert.alertStyle = .informational;
+                        alert.messageText = message.localized
+                        alert.addButton(withTitle: "OK")
+                        alert.runModal()
+                    }
+                    
+//                    let uniqueFilteredProfiles = self.SerMgr.profiles.reduce(into: [String: ServerProfile]()) { result, profile in
+//                        if profile.latency != "fail" {
+//                            let key = profile.name()
+//                            result[key] = result[key] ?? profile
+//                        }
+//                    }.values.filter { $0.latency != "fail" }
+                    
+                    let uniqueFilteredProfiles = self.SerMgr.profiles.reduce(into: [String: ServerProfile]()) { result, profile in
+                        let key = profile.name()
+                        result[key] = result[key] ?? profile
+                    }.values.filter { $0.name() != nil }
+                    
+                    self.SerMgr.profiles = uniqueFilteredProfiles;
+                    self.SerMgr.save();
+                }
             }
             return
         }
+        
         let host = self.SerMgr.profiles[i].serverHost
         SimplePingClient.pingHostname(host) { latency in
             DispatchQueue.global().async {
-                print("[Ping Result]-\(host) latency is \(latency ?? "fail")")
+                print("[Ping Result]-\(host) latency is \(latency ?? "fail") ms")
                 self.SerMgr.profiles[i].latency = latency ?? "fail"
                 
                 if latency != nil {
-                    if self.fastest == nil{
-                        self.fastest = latency
-                        self.fastest_id = i
-                    }else{
-                        if Int(latency!) < Int(self.fastest!) {
-                            self.fastest = latency
-                            self.fastest_id = i
-                        }
-                    }
                     DispatchQueue.main.async {
                         // do the UI update HERE
                         (NSApplication.shared.delegate as! AppDelegate).updateServersMenu()

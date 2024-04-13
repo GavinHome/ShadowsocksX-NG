@@ -336,4 +336,11 @@ class ServerProfile: NSObject, NSCopying {
         }
     }
     
+    func name() -> String {
+        if remark.isEmpty {
+            return "\(serverHost):\(serverPort)"
+        } else {
+            return "\(String(remark.prefix(24))) (\(serverHost):\(serverPort))"
+        }
+    }
 }
