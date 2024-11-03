@@ -3,7 +3,7 @@
 //  ShadowsocksX-NG
 //
 //  Created by 杨晓民 on 2024/4/5.
-//  Copyright © 2024 qiuyuzhou. All rights reserved.
+//  Copyright © 2024 yangxiaomin. All rights reserved.
 //
 
 import Foundation
@@ -139,17 +139,17 @@ class PingServers:NSObject{
                         alert.runModal()
                     }
                     
-//                    let uniqueFilteredProfiles = self.SerMgr.profiles.reduce(into: [String: ServerProfile]()) { result, profile in
-//                        if profile.latency != "fail" {
-//                            let key = profile.name()
-//                            result[key] = result[key] ?? profile
-//                        }
-//                    }.values.filter { $0.latency != "fail" }
-                    
                     let uniqueFilteredProfiles = self.SerMgr.profiles.reduce(into: [String: ServerProfile]()) { result, profile in
-                        let key = profile.name()
-                        result[key] = result[key] ?? profile
-                    }.values.filter { $0.name() != nil }
+                        if profile.latency != "fail" {
+                            let key = profile.name()
+                            result[key] = result[key] ?? profile
+                        }
+                    }.values.filter { $0.latency != "fail" }
+                    
+//                    let uniqueFilteredProfiles = self.SerMgr.profiles.reduce(into: [String: ServerProfile]()) { result, profile in
+//                        let key = profile.name()
+//                        result[key] = result[key] ?? profile
+//                    }.values.filter { $0.name() != nil }
                     
                     self.SerMgr.profiles = uniqueFilteredProfiles;
                     self.SerMgr.save();
